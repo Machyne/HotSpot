@@ -33,7 +33,9 @@ if (Meteor.isClient) {
 
     // Add a new spot to the database
     Maps.post = function (spot) {
-      last = Spots.insert(spot);
+      spot[tags] = [];
+      Spots.insert(spot);
+      last = spot;
     };
 
     Maps.addTag = function(tag) {
