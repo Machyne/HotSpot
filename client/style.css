@@ -153,6 +153,10 @@ footer span:before{
     display: block;
     padding: 0;
     position: relative;
+    max-width: 555px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    color: #f00;
 }
 
 #tag-list li {
@@ -160,9 +164,10 @@ footer span:before{
     padding-right: 0.5em;
     display: inline;
     color: #f00;
+
 }
 
-@media (min-width: 600px){
+@media (min-width: 601px){
 	header {
 		height:44px;
 		background-size: 100% 100%;
@@ -174,7 +179,7 @@ footer span:before{
 	}
 
 	#bottomCurtain {
-		bottom: -120px;
+		bottom: -90px;
 	}
 
 	#bottomCurtain.down {
@@ -187,6 +192,10 @@ footer span:before{
 		height: 76px;
 		background-size: 100% 100%;
 		margin-bottom: 20px;
+	}
+
+	footer{
+		bottom: 90px;
 	}
 }
 
