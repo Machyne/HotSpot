@@ -91,12 +91,13 @@ if (Meteor.isClient) {
         var p = $('#tagfield').position(),
             x = p.left + 2,
             y = p.top + $('#tagfield').height() / 2 - 7;
+        if (tag.length == 0) return;
         $('#copytext').html(tag)
           .fadeIn(0)
           .css( {left: x, top: y} )
           .animate( {top: y + 50}, 200, queue = false )
           .fadeOut(200, queue = false);
-        Maps.addTagToLast(tag);
+        Maps.addTag(tag);
         var w = $('<li>#' + tag + '</li>').prependTo('#tag-list')
           .fadeOut(0).fadeIn().innerWidth();
         $('#tag-list').css({ 'left': -w }).animate({ 'left': 0 }, 200);
@@ -106,6 +107,16 @@ if (Meteor.isClient) {
         $(this).animate({'paddingLeft': '0px'}, 500);
       }
     });
+
+    // Show all tags!
+    $('#title').hover(
+      handlerIn = function() {
+        Maps.showAll();
+      },
+      handlerOut = function() {
+        Maps.hideAll();
+      }
+    );
 
   });
 
