@@ -19,7 +19,12 @@ if (Meteor.isClient) {
 
     Maps.init();
     Spots.find().forEach( function(doc, index, cursor) {
-      Maps.addPoint({lat: doc.lat, lng: doc.lng, name: doc.name, id: doc._id}, true); //noUpdate = true
+      Maps.addPoint({
+        lat: doc.lat,
+        lng: doc.lng,
+        name: doc.name,
+        tags: doc.tags,
+        id: doc._id}, addCurrentLocation); //noUpdate = true
     });
     Maps.updateMap();
     Maps.post = function (spot) {

@@ -75,6 +75,9 @@ Maps = (function () {
             e.layer.closePopup();
         })
 
+        var content = '<span.tag>' + map.markerLayer.feature.properties.tags + '</span>'
+        map.markerLayer.bindPopup(content);
+
         /////
         // //
         /////
@@ -89,6 +92,7 @@ Maps = (function () {
                 },
                 "properties": {
                     "title": spot.name,
+                    "tags": spot.tags,
                     "icon": {
                         "iconUrl": "./marker_w.png",
                         "iconSize": [50, 50], // size of the icon
@@ -120,12 +124,13 @@ Maps = (function () {
         });
         self.updateMap();
     },
-    addCurrentLocation: function (name) {
+    addCurrentLocation: function (name, tags) {
         var x = self.marker.getLatLng();
         var toPost = {
             lng: x.lng,
             lat: x.lat,
-            name: name
+            name: name,
+            tags: tags
         };
         // console.dir(toPost);
         self.post(toPost);
