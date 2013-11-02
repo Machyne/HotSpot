@@ -117,8 +117,9 @@ Maps = (function () {
                 var marker = e.layer,
                     feature = marker.feature;
                 marker.setIcon(L.icon(feature.properties.icon));
-                var tags = feature.properties.tags ? feature.properties.tags.join(", ") : "";
-                var content = '<span.tag>' + tags + '</span>'
+                var tags = feature.properties.tags;
+                var tags_string = tags && tags.length > 0 ? "#" + tags.join(" #") : "";
+                var content = '<span.tag>' + tags_string + '</span>'
                 marker.bindPopup(content, {
                     closeButton: false
                 });
