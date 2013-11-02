@@ -30,19 +30,19 @@ Maps = (function () {
             marker.addTo(map);
         }
 
-        var location_error = function() {
-            console.log("user said no");
-            //add_draggable_marker(me_x, me_y);
-        }
-
+        // Show user location on map
         map.on('locationfound', function(e) {
-            map.fitBounds(e.bounds);
+            // map.fitBounds(e.bounds);
             me_x = e.latlng.lat;
             me_y = e.latlng.lng;
             add_draggable_marker(me_x, me_y);
         })
 
-        map.on('locationerror', location_error);
+        // Couldn't get user location
+        map.on('locationerror', function() {
+            console.log("user said no");
+            //add_draggable_marker(me_x, me_y);
+        });
 
         if (!navigator.geolocation) {
             console.log('Geolocation denied');
@@ -50,6 +50,7 @@ Maps = (function () {
             map.locate();
         };
 
+        // Convert spot object to marker object
         var make_marker = function(spot) {
             return {
                 "type": "Feature",
@@ -69,11 +70,9 @@ Maps = (function () {
             };
         };
 
-
         map.markerLayer.on('layeradd', function(e) {
             var marker = e.layer,
                 feature = marker.feature;
-
             marker.setIcon(L.icon(feature.properties.icon));
         });
 
