@@ -145,3 +145,7 @@ footer{
     display: inline;
     color: #f00;
 }
+
+@media (min-width: 600px){
+
+}
