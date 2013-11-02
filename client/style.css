@@ -134,6 +134,21 @@ footer{
 	padding-top:7px;
 }
 
+footer span{
+	font-family: Helvetica, sans-serif;
+	color: #111;
+}
+
+footer span:before{
+	content:'';
+	display:inline-block;
+	background-image: url('/teamlogo.png');
+	background-size:100%;
+	width:26px;
+	height:22.25px;
+	margin-right:4px;
+}
+
 #tag-list {
     display: block;
     padding: 0;
@@ -147,11 +162,6 @@ footer{
     color: #f00;
 }
 
-
-@media (min-width: 600px){
-
-}
-
 .leaflet-popup-content-wrapper, .leaflet-popup-tip {
     color: #f00;
     font-style: italic;
@@ -160,3 +170,5 @@ footer{
 .leaflet-marker-icon:not(.leaflet-clickable) {
     pointer-events: none;
 }
+
+
