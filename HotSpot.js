@@ -3,11 +3,12 @@ Spots = new Meteor.Collection("spots"); //model
 if (Meteor.isClient) {
   Spots.find().observeChanges( {
     added: function(id, fields) {
-      console.log("hi");
+      fields.id = id;
+      Maps.addPoint(fields);
     },
 
     removed: function(id) {
-      console.log("bye");
+      Maps.removePoint(id);
     }
   });
   Meteor.startup( function () {
