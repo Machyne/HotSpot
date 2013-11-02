@@ -9,6 +9,9 @@
 </body>
 
 <template name="header">
+	<header>
+		<img id="title" alt="HotSpot" src="/title.png" />
+	</header>
 </template>
 
 <template name="map">
@@ -18,9 +21,10 @@
 
 <template name="footer">
 <div id="bottomCurtain">
-	<button id="hotbutton" onclick="Maps.addCurrentLocation('Wassup')">HOT</button>
+	<a id="hotbutton"></a>
+	<div id="tagwrapper"><input type="text" id="tagfield" placeholder="describe the hotspot"></div>
 	<footer>
-		Made by The Flying Walruses
+		A Flying Walrus Project
 	</footer>
 </div>
 </template>
