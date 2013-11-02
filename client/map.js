@@ -151,6 +151,7 @@ Maps = (function () {
         },
         addCurrentLocation: function (name) {
             var x = self.marker.getLatLng();
+            if(typeof(x)=='undefined' || typeof(x.lng)=='undefined' || typeof(x.lat)=='undefined') return;
             var toPost = {
                 lng: x.lng,
                 lat: x.lat,

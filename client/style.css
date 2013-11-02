@@ -42,7 +42,7 @@ header #title{
 	left:0;
 	right:0;
 	height:320px;
-	bottom: -0px;
+	bottom: 0px;
 	background-image: url('/curtain_gradient.png');
 	transition: bottom 500ms ease;
 }
