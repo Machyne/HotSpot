@@ -49,6 +49,7 @@ Maps = (function () {
                 if (!self.marker) {
                     self.marker = L.marker(new L.LatLng(lat, lng), {
                         icon: L.mapbox.marker.icon({'marker-color': 'CC0033'}),
+                        zIndexOffset: 1,
                         clickable: false,
                         keyboard: false
                     });
@@ -96,7 +97,7 @@ Maps = (function () {
                         "title": spot.name,
                         "tags": spot.tags,
                         "icon": {
-                            "iconUrl": "./marker_w.png",
+                            "iconUrl": "./marker.png",
                             "iconSize": [size, size], // size of the icon
                             "iconAnchor": [size/2, size/2], // point of the icon which will correspond to marker's location
                             "popupAnchor": [0, -25]  // point from which the popup should open relative to the iconAnchor

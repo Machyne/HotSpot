@@ -4,6 +4,16 @@
 	float:left;
 }
 
-button#hotbutton{
+button#hotbutton {
  float:right;
+}
+
+#tag-list {
+    position: relative;
+}
+
+#tag-list li {
+    display: inline;
+    font-size: 0.8em;
+    color: #08f;
 }

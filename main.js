@@ -56,11 +56,9 @@ if (Meteor.isClient) {
     $('.leaflet-bottom.leaflet-right').remove();
     runRepeatedly(Maps.updateMap, 400);
 
-    $('#tags-group').fadeOut(0);
-
     $('#hotbutton').click(function() {
       Maps.addCurrentLocation('Wassup');
-      $('#tags-group').fadeIn();
+      // $('#tags-group').fadeIn();
     });
 
     // Detect spacebar in the tags field
@@ -68,6 +66,9 @@ if (Meteor.isClient) {
       if (e.keyCode == 32 || e.keyCode == 13) {
         var tag = $(this).val();
         Maps.addTagToLast(tag);
+        var w = $('<li>#' + tag + '</li>').prependTo('#tag-list')
+          .fadeOut(0).fadeIn().innerWidth();
+        $('#tag-list').css({ 'left': -w }).animate({ 'left': 0 }, 200);
         $(this).val('');
       }
     });
