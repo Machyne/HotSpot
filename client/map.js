@@ -8,7 +8,7 @@ Maps = (function () {
                       z: 16 }
 
         var me = { x: start.x, y: start.y };
-        var self_marker = undefined;
+        self.marker = undefined;
 
         var map = L.mapbox.map('map', 'schiller.map-s9m1r6ii', { zoomControl: false })
             .setView([start.x, start.y], start.z);
@@ -46,17 +46,17 @@ Maps = (function () {
         });
 
         var locate_user = function(lat, lng) {
-            if (!self_marker) {
-                self_marker = L.marker(new L.LatLng(lat, lng), {
+            if (!self.marker) {
+                self.marker = L.marker(new L.LatLng(lat, lng), {
                     icon: L.mapbox.marker.icon({'marker-color': 'CC0033'}),
                     clickable: false,
                     keyboard: false
                 });
             } else {
-                self_marker.setLatLng(lat, lng)
+                self.marker.setLatLng(lat, lng)
             }
-            self_marker.addTo(map);
-            map.panTo(self_marker.getLatLng());
+            self.marker.addTo(map);
+            map.panTo(self.marker.getLatLng());
         }
 
         /////////////////////////////////
@@ -64,7 +64,7 @@ Maps = (function () {
         /////////////////////////////////
 
         map.on('drag', function(e) {
-            self_marker.setLatLng(map.getCenter());
+            self.marker.setLatLng(map.getCenter());
         });
 
         /////
@@ -111,6 +111,16 @@ Maps = (function () {
             return (el.id != id);
         });
         self.updateMap();
+    },
+    addCurrentLocation: function (name) {
+        var x = self.marker.getLatLng();
+        var toPost = {
+            lng: x.lng,
+            lat: x.lat,
+            name: name
+        };
+        // console.dir(toPost);
+        self.post(toPost);
     }
     }
     return self;
