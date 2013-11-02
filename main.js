@@ -25,6 +25,9 @@ if (Meteor.isClient) {
   // Initialize
   Meteor.startup( function () {
 
+    var last = undefined;
+
+    // Show all spots in the database
     Maps.init();
     Spots.find().forEach( function(doc, index, cursor) {
       Maps.addPoint({
@@ -35,9 +38,16 @@ if (Meteor.isClient) {
         id: doc._id}, true);
     });
     Maps.updateMap();
+
+    // Add a new spot to the database
     Maps.post = function (spot) {
-      Spots.insert(spot);
+      last = Spots.insert(spot);
     };
+
+    Maps.addTag = function(tag) {
+      last[tags].push(tag);
+    }
+
     $('.leaflet-bottom.leaflet-right').remove();
   });
 }

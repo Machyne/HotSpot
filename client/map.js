@@ -59,21 +59,33 @@ Maps = (function () {
             map.panTo(self.marker.getLatLng());
         }
 
-        /////////////////////////////////
-        // First-person implementation //
-        /////////////////////////////////
+        /////////////
+        // Effects //
+        /////////////
 
+        // "First person" map dragging
         map.on('drag', function(e) {
             self.marker.setLatLng(map.getCenter());
         });
 
+        // Mouseover tooltips
         map.markerLayer.on('mouseover', function(e) {
             e.layer.openPopup();
         });
-
         map.markerLayer.on('mouseout', function(e) {
-            e.layer.closePopup();
+            //e.layer.closePopup();
         })
+
+        // Show tags in tooltips
+        map.markerLayer.on('layeradd', function(e) {
+            var marker = e.layer,
+                feature = marker.feature;
+            var tags = (feature.properties.tags && feature.properties.tags.join(", ")) || "";
+            var content = '<span.tag>' + tags + '</span>'
+            marker.bindPopup(content, {
+                closeButton: false
+            });
+        });
 
         /////
         // //
@@ -92,8 +104,8 @@ Maps = (function () {
                     "tags": spot.tags,
                     "icon": {
                         "iconUrl": "./marker_w.png",
-                        "iconSize": [50, 50], // size of the icon
-                        "iconAnchor": [25, 25], // point of the icon which will correspond to marker's location
+                        "iconSize": [100, 100], // size of the icon
+                        "iconAnchor": [50, 50], // point of the icon which will correspond to marker's location
                         "popupAnchor": [0, -25]  // point from which the popup should open relative to the iconAnchor
                     }
                 }
