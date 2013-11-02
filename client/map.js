@@ -1,5 +1,6 @@
 Maps = (function () {
     var data = [];
+    var party = [];
     var self = {
         init: function () {
             // Start location and zoom
@@ -93,6 +94,7 @@ Maps = (function () {
                         "type": "Point",
                         "coordinates": [spot.lng, spot.lat]
                     },
+                    "opacity": 0.5,
                     "properties": {
                         "title": spot.name,
                         "tags": spot.tags,
@@ -118,10 +120,18 @@ Maps = (function () {
                 });
             });
 
-            self.updateMap = function(){
-                var party = data.map(make_marker);
+            self.updateMap = function() {
+                party = data.map(make_marker);
                 map.markerLayer.setGeoJSON(party);
             };
+
+            // self.updateOpacities = function() {
+            //     for (var i = 0; i < party.length; i++) {
+            //         var opacity = party[i].opacity;
+            //         console.log(opacity);
+            //         party[i].setOpacity(opacity * 0.5);
+            //     }
+            // }
         },
 
         addPoint: function (obj, noUpdate){

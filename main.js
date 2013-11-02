@@ -54,7 +54,7 @@ if (Meteor.isClient) {
     });
 
     $('.leaflet-bottom.leaflet-right').remove();
-    runRepeatedly(Maps.updateMap, 400);
+    runRepeatedly(Maps.updateMap, 10000);
 
     $('#hotbutton').click(function() {
       Maps.addCurrentLocation('Wassup');
@@ -63,13 +63,24 @@ if (Meteor.isClient) {
 
     // Detect spacebar in the tags field
     $('#tags').keyup(function (e) {
-      if (e.keyCode == 32 || e.keyCode == 13) {
-        var tag = $(this).val();
+      var textWidth = function(text){
+        var sensor = $('<span>'+text+'</span>').css({margin: 0, padding: 0});
+        $('body').append(sensor);
+        var width = sensor.innerWidth();
+        console.log(sensor);
+        sensor.remove();
+        return width;
+      };
+      if (e.keyCode == 32 || e.keyCode == 188 || e.keyCode == 186 || e.keyCode == 13) {
+        var tag = $(this).val().replace(/[' .;,"-]/g, '');
         Maps.addTagToLast(tag);
         var w = $('<li>#' + tag + '</li>').prependTo('#tag-list')
           .fadeOut(0).fadeIn().innerWidth();
         $('#tag-list').css({ 'left': -w }).animate({ 'left': 0 }, 200);
+        // note, add a box-sizing border-box and a max-width
+        $(this).css('paddingLeft', textWidth($(this).val()));
         $(this).val('');
+        $(this).animate({'paddingLeft': '0px'}, 500);
       }
     });
 

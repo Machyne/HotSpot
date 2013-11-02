@@ -8,6 +8,12 @@ button#hotbutton {
  float:right;
 }
 
+#tags {
+    box-sizing: border-box;
+    width: 150px;
+    max-width: 150px;
+}
+
 #tag-list {
     position: relative;
 }
