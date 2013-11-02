@@ -8,6 +8,7 @@ Maps = (function () {
                       z: 16 }
 
         var me = { x: start.x, y: start.y };
+        var self_marker = undefined;
 
         var map = L.mapbox.map('map', 'schiller.map-s9m1r6ii', { zoomControl: false })
             .setView([start.x, start.y], start.z);
@@ -20,35 +21,55 @@ Maps = (function () {
             map.scrollWheelZoom.disable();
         }
 
-        // Add draggable marker
-        var add_draggable_marker = function(lat, lon) {
-            var marker = L.marker(new L.LatLng(lat, lon), {
-                icon: L.mapbox.marker.icon({'marker-color': 'CC0033'}),
-                draggable: true
-            });
-            marker.bindPopup('Drag me!');
-            marker.addTo(map);
-        }
+        //////////////////////////
+        // Locating user on map //
+        //////////////////////////
 
-        // Show user location on map
-        map.on('locationfound', function(e) {
-            // map.fitBounds(e.bounds);
-            me_x = e.latlng.lat;
-            me_y = e.latlng.lng;
-            add_draggable_marker(me_x, me_y);
-        })
-
-        // Couldn't get user location
-        map.on('locationerror', function() {
-            console.log("user said no");
-            //add_draggable_marker(me_x, me_y);
-        });
-
+        // Try to find user location
         if (!navigator.geolocation) {
             console.log('Geolocation denied');
         } else {
             map.locate();
         };
+
+        // Location found
+        map.on('locationfound', function(e) {
+            map.fitBounds(e.bounds);
+            me.x = e.latlng.lat;
+            me.y = e.latlng.lng;
+            locate_user(me.x, me.y);
+        })
+        // Location not found
+        map.on('locationerror', function() {
+            console.log("user said no");
+            locate_user(me.x, me.y);
+        });
+
+        var locate_user = function(lat, lng) {
+            if (!self_marker) {
+                self_marker = L.marker(new L.LatLng(lat, lng), {
+                    icon: L.mapbox.marker.icon({'marker-color': 'CC0033'}),
+                    clickable: false,
+                    keyboard: false
+                });
+            } else {
+                self_marker.setLatLng(lat, lng)
+            }
+            self_marker.addTo(map);
+            map.panTo(self_marker.getLatLng());
+        }
+
+        /////////////////////////////////
+        // First-person implementation //
+        /////////////////////////////////
+
+        map.on('drag', function(e) {
+            self_marker.setLatLng(map.getCenter());
+        });
+
+        /////
+        // //
+        /////
 
         // Convert spot object to marker object
         var make_marker = function(spot) {

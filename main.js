@@ -1,6 +1,8 @@
 Spots = new Meteor.Collection("spots"); //model
 
 if (Meteor.isClient) {
+
+  // Update whenever the spots database changes
   Spots.find().observeChanges( {
     added: function(id, fields) {
       fields.id = id;
@@ -11,6 +13,8 @@ if (Meteor.isClient) {
       Maps.removePoint(id);
     }
   });
+
+  // Initialize
   Meteor.startup( function () {
 
     Maps.init();
