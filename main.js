@@ -13,6 +13,10 @@ if (Meteor.isClient) {
   });
   Meteor.startup( function () {
     Maps.init();
+    Spots.find().forEach( function(doc, index, cursor) {
+      Maps.addPoint({lat: doc.lat, lng: doc.lng, name: doc.name, id: doc._id}, true); //noUpdate = true
+    });
+    Maps.updateMap();
   });
 }
 
