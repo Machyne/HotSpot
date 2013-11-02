@@ -1,18 +1,17 @@
-if (Meteor.isClient) {
-  Template.hello.greeting = function () {
-    return "Welcome to HotSpot.";
-  };
+Spots = new Meteor.Collection("spots"); //model
 
-  Template.hello.events({
-    'click input' : function () {
-      // template data, if any, is available in 'this'
-      if (typeof console !== 'undefined')
-        console.log("You pressed the button");
+if (Meteor.isClient) {
+  Spots.find().observeChanges( {
+    added: function(id, fields) {
+      console.log("hi");
+    },
+
+    removed: function(id) {
+      console.log("bye");
     }
   });
-  
-  $(document).ready(function() {
-    console.log('Hello!');
+  Meteor.startup( function () {
+    Maps.init();
   });
 }
 
