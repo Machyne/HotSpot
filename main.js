@@ -23,9 +23,10 @@ if (Meteor.isClient) {
     });
     Maps.updateMap();
     Maps.post = function (spot) {
-      Spots.insert(spot);
+      spot.id = Spots.insert(spot);
+      // Maps.addPoint(spot);
     };
-    $('.leaflet-bottom.leaflet-right').remove()
+    $('.leaflet-bottom.leaflet-right').remove();
   });
 }
 
