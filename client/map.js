@@ -84,9 +84,9 @@ Maps = (function () {
             map.markerLayer.setGeoJSON(party);
         }
     },
-    addPoint: function (obj){
+    addPoint: function (obj, noUpdate){
         data.push(obj);
-        self.updateMap();
+        if(!noUpdate) self.updateMap();
     },
     removePoint: function (id){
         data = data.filter(function (el, i, arr) {
