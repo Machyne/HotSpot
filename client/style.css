@@ -44,6 +44,11 @@ header #title{
 	height:320px;
 	bottom: -0px;
 	background-image: url('/curtain_gradient.png');
+	transition: bottom 500ms ease;
+}
+
+#bottomCurtain.down {
+	bottom: -230px;
 }
 
 #hotbutton {
@@ -70,9 +75,13 @@ header #title{
 	background-image: url('/hotButton_up_hover.png');
 }
 
-#hotbutton:active{
+#hotbutton:active, #hotbutton.clicked{
 	background-image: url('/hotButton_down.png');
 	left:-2px;
+}
+
+#hotbutton.clicked:hover{
+	background-image: url('/hotButton_down_hover.png');
 }
 
 #tagwrapper{
