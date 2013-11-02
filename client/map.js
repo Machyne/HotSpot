@@ -67,6 +67,14 @@ Maps = (function () {
             self.marker.setLatLng(map.getCenter());
         });
 
+        map.markerLayer.on('mouseover', function(e) {
+            e.layer.openPopup();
+        });
+
+        map.markerLayer.on('mouseout', function(e) {
+            e.layer.closePopup();
+        })
+
         /////
         // //
         /////
@@ -77,12 +85,12 @@ Maps = (function () {
                 "type": "Feature",
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [spot.lat, spot.lng]
+                    "coordinates": [spot.lng, spot.lat]
                 },
                 "properties": {
                     "title": spot.name,
                     "icon": {
-                        "iconUrl": "./marker.png",
+                        "iconUrl": "./marker_w.png",
                         "iconSize": [50, 50], // size of the icon
                         "iconAnchor": [25, 25], // point of the icon which will correspond to marker's location
                         "popupAnchor": [0, -25]  // point from which the popup should open relative to the iconAnchor
