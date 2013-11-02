@@ -111,6 +111,14 @@ Maps = (function () {
             return (el.id != id);
         });
         self.updateMap();
+    },
+    addCurrentLocation: function (name) {
+        var x = self_marker.getLatLng
+        self.post({
+            lng: x.lng,
+            lat: x.lat,
+            name: name,
+        });
     }
     }
     return self;
