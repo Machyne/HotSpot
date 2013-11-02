@@ -151,6 +151,7 @@ Maps = (function () {
         },
         addCurrentLocation: function (name) {
             var x = self.marker.getLatLng();
+            if(typeof(x)=='undefined' || typeof(x.lng)=='undefined' || typeof(x.lat)=='undefined') return;
             var toPost = {
                 lng: x.lng,
                 lat: x.lat,
@@ -160,8 +161,10 @@ Maps = (function () {
             self.post(toPost);
         },
         addTagToLast: function (tag) {
-            last && (last['tags'].push(tag));
-            self.updateMap();
+            if (last) {
+                (last['tags'].push(tag));
+                self.updateMap();
+            }
         }
     }
     return self;
