@@ -48,7 +48,6 @@ if (Meteor.isClient) {
         lat: doc.lat,
         lng: doc.lng,
         created: doc.created,
-        name: doc.name,
         tags: doc.tags,
         id: doc._id}, true);
     });
@@ -72,7 +71,7 @@ if (Meteor.isClient) {
         };
         $('#tag-list').html('');
       }else{
-        Maps.addCurrentLocation('Wassup');
+        Maps.addCurrentLocation();
         $(this).attr('class', 'clicked');
         $('#bottomCurtain').removeAttr('class');
       };
