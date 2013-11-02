@@ -79,8 +79,10 @@ Maps = (function () {
                 e.layer.openPopup();
             });
             map.markerLayer.on('mouseout', function(e) {
-                e.layer.closePopup();
+                // e.layer.closePopup();
             });
+
+            self.layer = map.markerLayer;
 
             /////
             // //
@@ -165,7 +167,23 @@ Maps = (function () {
                 (last['tags'].push(tag));
                 self.updateMap();
             }
-        }
+        },
+        // showAll: function() {
+        //     self.layer.eachLayer(function(marker) {
+        //         marker.openPopup();
+        //         var x = $('.leaflet-popup');
+        //         var a = x.css('-webkit-transform');
+        //         var t = x.children().children().children().html();
+        //         $('<div>'+t+'</div>').appendTo($('#popups'))
+        //             .css({ '-webkit-transform': a });
+        //         marker.closePopup();
+        //     });
+        // },
+        // hideAll: function() {
+        //     self.layer.eachLayer(function(marker) {
+        //         $('#popups').html('');
+        //     });
+        // }
     }
     return self;
 })();

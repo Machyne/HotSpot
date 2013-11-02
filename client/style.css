@@ -141,14 +141,26 @@ footer{
 }
 
 #tag-list li {
+    color: #f00;
     font-style: italic;
     padding-right: 0.5em;
     display: inline;
+}
+
+#popups div {
+    position: absolute;
     color: #f00;
+    font-style: italic;
+    /**/
+    z-index: 999;
+    top: 110px;
+    font-family: Helvetica, sans-serif;
+    font-size: 0.75em;
 }
 
 .leaflet-popup-content-wrapper, .leaflet-popup-tip {
     color: #f00;
+    font-family: Helvetica;
     font-style: italic;
 }
 

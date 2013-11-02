@@ -109,14 +109,7 @@ if (Meteor.isClient) {
     });
 
     // Show all tags!
-    $('#title').hover(
-      handlerIn = function() {
-        Maps.showAll();
-      },
-      handlerOut = function() {
-        Maps.hideAll();
-      }
-    );
+    // $('#title').hover( Maps.showAll, Maps.hideAll);
 
   });
 
