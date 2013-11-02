@@ -16,6 +16,7 @@ if (Meteor.isClient) {
 
   // Initialize
   Meteor.startup( function () {
+
     Maps.init();
     Spots.find().forEach( function(doc, index, cursor) {
       Maps.addPoint({lat: doc.lat, lng: doc.lng, name: doc.name, id: doc._id}, true); //noUpdate = true
@@ -27,5 +28,6 @@ if (Meteor.isClient) {
 if (Meteor.isServer) {
   Meteor.startup(function () {
     // code to run on server at startup
+    // Spots.remove({});
   });
 }
