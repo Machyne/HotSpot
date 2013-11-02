@@ -1,6 +1,7 @@
 Spots = new Meteor.Collection("spots"); //model
 
 if (Meteor.isClient) {
+
   // Add Timestamps to all spots
   Meteor.methods({
     addItem: function (doc) {
@@ -25,7 +26,7 @@ if (Meteor.isClient) {
   // Initialize
   Meteor.startup( function () {
 
-    var last = undefined;
+    var last_id = undefined;
 
     // Show all spots in the database
     Maps.init();
@@ -41,16 +42,30 @@ if (Meteor.isClient) {
 
     // Add a new spot to the database
     Maps.post = function (spot) {
-      spot[tags] = [];
       Spots.insert(spot);
-      last = spot;
+      last_id = spot._id;
     };
 
+    // Add a tag to the last added spot
+    // -- in Mongo and locally
     Maps.addTag = function(tag) {
-      last[tags].push(tag);
+      last_spot = Spots.findOne({_id: last_id});
+      Spots.update({_id: last_id}, {'$push': {tags: tag}});
+      Maps.addTagToLast(tag);
     }
 
     $('.leaflet-bottom.leaflet-right').remove();
+  });
+
+  $(document).ready(function() {
+    // Detect spacebar in the tags field
+    $('#tags').keyup(function (e) {
+      if (e.keyCode == 32 || e.keyCode == 13) {
+        var tag = $(this).val();
+        Maps.addTagToLast(tag);
+        $(this).val('');
+      }
+    });
   });
 }
 

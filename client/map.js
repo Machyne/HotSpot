@@ -73,23 +73,14 @@ Maps = (function () {
             e.layer.openPopup();
         });
         map.markerLayer.on('mouseout', function(e) {
-            //e.layer.closePopup();
+            e.layer.closePopup();
         })
-
-        // Show tags in tooltips
-        map.markerLayer.on('layeradd', function(e) {
-            var marker = e.layer,
-                feature = marker.feature;
-            var tags = (feature.properties.tags && feature.properties.tags.join(", ")) || "";
-            var content = '<span.tag>' + tags + '</span>'
-            marker.bindPopup(content, {
-                closeButton: false
-            });
-        });
 
         /////
         // //
         /////
+
+        var last = undefined;
 
         // Convert spot object to marker object
         var make_marker = function(spot) {
@@ -112,10 +103,16 @@ Maps = (function () {
             };
         };
 
+        // Set custom icon and tooltip
         map.markerLayer.on('layeradd', function(e) {
             var marker = e.layer,
                 feature = marker.feature;
             marker.setIcon(L.icon(feature.properties.icon));
+            var tags = feature.properties.tags ? feature.properties.tags.join(", ") : "";
+            var content = '<span.tag>' + tags + '</span>'
+            marker.bindPopup(content, {
+                closeButton: false
+            });
         });
 
         self.updateMap = function(){
@@ -125,24 +122,28 @@ Maps = (function () {
     },
     addPoint: function (obj, noUpdate){
         data.push(obj);
+        last = obj;
         if(!noUpdate) self.updateMap();
     },
-    removePoint: function (id){
+    removePoint: function (id, noUpdate){
         data = data.filter(function (el, i, arr) {
             return (el.id != id);
         });
-        self.updateMap();
+        if(!noUpdate) self.updateMap();
     },
-    addCurrentLocation: function (name, tags) {
+    addCurrentLocation: function (name) {
         var x = self.marker.getLatLng();
         var toPost = {
             lng: x.lng,
             lat: x.lat,
             name: name,
-            tags: tags
+            tags: []
         };
-        // console.dir(toPost);
         self.post(toPost);
+    },
+    addTagToLast: function (tag) {
+        last && (last['tags'].push(tag));
+        self.updateMap();
     }
     }
     return self;
