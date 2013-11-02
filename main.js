@@ -65,7 +65,7 @@ if (Meteor.isClient) {
         $('#bottomCurtain').attr('class', 'down');
         var tf = $('#tagfield');
         if(tf.val()!=''){
-          var e = jQuery.Event("keyup");
+          var e = jQuery.Event("keydown");
           e.which = 13;
           e.keyCode = 13;
           tf.trigger(e);
@@ -79,7 +79,7 @@ if (Meteor.isClient) {
     });
 
     // Detect spacebar in the tags field
-    $('#tagfield').keyup(function (e) {
+    $('#tagfield').keydown(function (e) {
       var textWidth = function(text){
         var sensor = $('<span>'+text+'</span>').css({margin: 0, padding: 0});
         $('body').append(sensor);
