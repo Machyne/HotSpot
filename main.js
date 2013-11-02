@@ -56,9 +56,24 @@ if (Meteor.isClient) {
     $('.leaflet-bottom.leaflet-right').remove();
     runRepeatedly(Maps.updateMap, 10000);
 
-    $('#hotbutton').click(function() {
-      Maps.addCurrentLocation('Wassup');
-      // $('#tags-group').fadeIn();
+
+    $('#hotbutton').click(function (e) {
+      if($(this).attr('class')==='clicked') {
+        $(this).removeAttr('class');
+        $('#bottomCurtain').attr('class', 'down');
+        var tf = $('#tagfield');
+        if(tf.val()!=''){
+          var e = jQuery.Event("keyup");
+          e.which = 13;
+          e.keyCode = 13;
+          tf.trigger(e);
+        };
+        $('#tag-list').html('');
+      }else{
+        Maps.addCurrentLocation('Wassup');
+        $(this).attr('class', 'clicked');
+        $('#bottomCurtain').removeAttr('class');
+      };
     });
 
     // Detect spacebar in the tags field
@@ -67,7 +82,6 @@ if (Meteor.isClient) {
         var sensor = $('<span>'+text+'</span>').css({margin: 0, padding: 0});
         $('body').append(sensor);
         var width = sensor.innerWidth();
-        console.log(sensor);
         sensor.remove();
         return width;
       };

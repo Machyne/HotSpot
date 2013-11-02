@@ -1,18 +1,22 @@
 Maps = (function () {
-    var data = [];
-    var party = [];
-    var self = {
-        init: function () {
-            // Start location and zoom
-            var start = { x: 44.460801721191814,
-                          y: -93.15390229225159,
-                          z: 16 }
 
-            var me = { x: start.x, y: start.y };
+    var spots = [];
+    
+    var geoJSON = [];
+
+    var self = {
+
+        init: function () {
+            
+            // Start location and zoom
+            var start = new L.LatLng(44.460801721191814, -93.15390229225159);
+            var zoom = 16;
+            var me = new L.LatLng(start.lat, start.lng);
             self.marker = undefined;
 
-            var map = L.mapbox.map('map', 'schiller.map-s9m1r6ii', { zoomControl: false })
-                .setView([start.x, start.y], start.z);
+            var map = L.mapbox.map('map', 'schiller.map-s9m1r6ii', {
+                    zoomControl: false
+                }).setView(start, zoom);
 
             // Enbale or disable drag and zoom handlers
             if (false) {
@@ -36,14 +40,14 @@ Maps = (function () {
             // Location found
             map.on('locationfound', function(e) {
                 map.fitBounds(e.bounds);
-                me.x = e.latlng.lat;
-                me.y = e.latlng.lng;
-                locate_user(me.x, me.y);
+                me.lat = e.latlng.lat;
+                me.lng = e.latlng.lng;
+                locate_user(me.lat, me.lng);
             });
             // Location not found
             map.on('locationerror', function() {
                 console.log("user said no");
-                locate_user(me.x, me.y);
+                locate_user(me.lat, me.lng);
             });
 
             var locate_user = function(lat, lng) {
@@ -121,26 +125,26 @@ Maps = (function () {
             });
 
             self.updateMap = function() {
-                party = data.map(make_marker);
-                map.markerLayer.setGeoJSON(party);
+                geoJSON = spots.map(make_marker);
+                map.markerLayer.setGeoJSON(geoJSON);
             };
 
             // self.updateOpacities = function() {
-            //     for (var i = 0; i < party.length; i++) {
-            //         var opacity = party[i].opacity;
+            //     for (var i = 0; i < geoJSON.length; i++) {
+            //         var opacity = geoJSON[i].opacity;
             //         console.log(opacity);
-            //         party[i].setOpacity(opacity * 0.5);
+            //         geoJSON[i].setOpacity(opacity * 0.5);
             //     }
             // }
         },
 
         addPoint: function (obj, noUpdate){
-            data.push(obj);
+            spots.push(obj);
             last = obj;
             if(!noUpdate) self.updateMap();
         },
         removePoint: function (id, noUpdate){
-            data = data.filter(function (el, i, arr) {
+            spots = spots.filter(function (el, i, arr) {
                 return (el.id != id);
             });
             if(!noUpdate) self.updateMap();
@@ -167,5 +171,5 @@ Maps = (function () {
 // {
 //     lng: 44.460801721191814,
 //     lat: -93.15390229225159,
-//     name: "Where the party at",
+//     name: "Where the geoJSON at",
 // }
