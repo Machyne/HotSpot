@@ -10,6 +10,10 @@ if (Meteor.isClient) {
         console.log("You pressed the button");
     }
   });
+  
+  $(document).ready(function() {
+    console.log('Hello!');
+  });
 }
 
 if (Meteor.isServer) {
