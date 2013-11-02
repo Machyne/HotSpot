@@ -1,6 +1,14 @@
 Spots = new Meteor.Collection("spots"); //model
 
 if (Meteor.isClient) {
+  // Add Timestamps to all spots
+  Meteor.methods({
+    addItem: function (doc) {
+      console.log('HI!');
+      doc.when = new Date;
+      return Items.insert(doc);
+    }
+  });
 
   // Update whenever the spots database changes
   Spots.find().observeChanges( {
@@ -46,9 +54,22 @@ if (Meteor.isClient) {
   });
 }
 
+if (!Date.unow) {
+  (function () {
+    var uniq = 0;
+    Date.unow = function () {
+      uniq++;
+      return Date.now() + (uniq % 5000);
+    };
+  })();
+}
+
 if (Meteor.isServer) {
   Meteor.startup(function () {
     // code to run on server at startup
-    // Spots.remove({});
+    Spots.remove({});
+    Spots.before.insert(function (userId, doc) {
+        doc.created = Date.unow();
+    });
   });
 }
