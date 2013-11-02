@@ -33,8 +33,8 @@ header #title{
 #map {
 	z-index:0;
 	position: absolute;
-	top:80px;
-	bottom: 90px;
+	top: 0;
+	bottom: 0;
 	left: 0;
 	right: 0;
 }
@@ -149,7 +149,31 @@ footer{
 
 
 @media (min-width: 600px){
+	header {
+		height:44px;
+		background-size: 100% 100%;
+	}
 
+	header #title{
+		height: 76.5px;
+		width: auto;
+	}
+
+	#bottomCurtain {
+		bottom: -120px;
+	}
+
+	#bottomCurtain.down {
+		bottom: -270px;
+	}
+
+	#hotbutton {
+		margin-top:-25px;
+		width: 118px;
+		height: 76px;
+		background-size: 100% 100%;
+		margin-bottom: 20px;
+	}
 }
 
 .leaflet-popup-content-wrapper, .leaflet-popup-tip {
