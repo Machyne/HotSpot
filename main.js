@@ -25,6 +25,7 @@ if (Meteor.isClient) {
     Maps.post = function (spot) {
       Spots.insert(spot);
     };
+    $('.leaflet-bottom.leaflet-right').remove()
   });
 }
 
