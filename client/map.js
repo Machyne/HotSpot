@@ -87,16 +87,20 @@ Maps = (function () {
     addPoint: function (obj){
         data.push(obj);
         self.updateMap();
-        {
-            lat: me.y,
-            lng: me.x,
-            name: "Where the party at",
-            id: "asdfadsf"
-        }
     },
-    removePoint: function (){
-        // data.push(obj);
+    removePoint: function (id){
+        data = data.filter(function (el, i, arr) {
+            return (el.id != id);
+        });
         self.updateMap();
     }
     }
-})()
+    return self;
+})();
+
+
+// {
+//     lng: 44.460801721191814,
+//     lat: -93.15390229225159,
+//     name: "Where the party at",
+// }
