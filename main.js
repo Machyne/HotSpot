@@ -67,6 +67,7 @@ if (Meteor.isClient) {
           var e = jQuery.Event("keydown");
           e.which = 13;
           e.keyCode = 13;
+          e.removeAllText = true;
           tf.trigger(e);
         };
         $('#tag-list').html('');
