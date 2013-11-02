@@ -119,7 +119,7 @@ header #title{
 
 #tagfield, #copytext, #tag-list li {
     font-family: Helvetica, sans-serif;
-    font-size: 1em;
+    font-size: 1.2em;
 }
 
 footer{
@@ -141,11 +141,22 @@ footer{
 }
 
 #tag-list li {
+    font-style: italic;
     padding-right: 0.5em;
     display: inline;
     color: #f00;
 }
 
+
 @media (min-width: 600px){
 
+}
+
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+    color: #f00;
+    font-style: italic;
+}
+
+.leaflet-marker-icon:not(.leaflet-clickable) {
+    pointer-events: none;
 }

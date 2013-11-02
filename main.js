@@ -48,7 +48,6 @@ if (Meteor.isClient) {
         lat: doc.lat,
         lng: doc.lng,
         created: doc.created,
-        name: doc.name,
         tags: doc.tags,
         id: doc._id}, true);
     });
@@ -72,7 +71,7 @@ if (Meteor.isClient) {
         };
         $('#tag-list').html('');
       }else{
-        Maps.addCurrentLocation('Wassup');
+        Maps.addCurrentLocation();
         $(this).attr('class', 'clicked');
         $('#bottomCurtain').removeAttr('class');
       };
@@ -88,7 +87,7 @@ if (Meteor.isClient) {
         return width;
       };
       if (e.keyCode == 32 || e.keyCode == 188 || e.keyCode == 186 || e.keyCode == 13) {
-        var tag = $(this).val().replace(/[' .;,"-]/g, '');
+        var tag = $(this).val().replace(/[' .;,"-#]/g, '');
         var p = $('#tagfield').position(),
             x = p.left + 2,
             y = p.top + $('#tagfield').height() / 2 - 7;
@@ -97,7 +96,7 @@ if (Meteor.isClient) {
           .css( {left: x, top: y} )
           .animate( {top: y + 50}, 200, queue = false )
           .fadeOut(200, queue = false);
-        Maps.addTagToLast(tag);
+        if(tag!='') Maps.addTagToLast(tag);
         var w = $('<li>#' + tag + '</li>').prependTo('#tag-list')
           .fadeOut(0).fadeIn().innerWidth();
         $('#tag-list').css({ 'left': -w }).animate({ 'left': 0 }, 200);
