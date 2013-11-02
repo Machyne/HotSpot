@@ -1,7 +1,10 @@
 html, body{
+	position: absolute;
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
+	padding: 0;
+	margin: 0;
 }
 
 
@@ -42,7 +45,7 @@ header #title{
 	left:0;
 	right:0;
 	height:320px;
-	bottom: 0px;
+	bottom: 0;
 	background-image: url('/curtain_gradient.png');
 	transition: bottom 500ms ease;
 }
