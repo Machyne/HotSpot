@@ -150,12 +150,12 @@ Maps = (function () {
             });
             if(!noUpdate) self.updateMap();
         },
-        addCurrentLocation: function (name) {
-            var x = self.marker.getLatLng();
+        addCurrentLocation: function () {
+            if(typeof(self.marker)=='undefined' || typeof(self.marker.getLatLng())=='undefined'
+             || typeof(self.marker.getLatLng().lng)=='undefined' || typeof(self.marker.getLatLng().lat)=='undefined') return;
             var toPost = {
-                lng: x.lng,
-                lat: x.lat,
-                name: name,
+                lng: self.marker.getLatLng().lng,
+                lat: self.marker.getLatLng().lat,
                 tags: []
             };
             self.post(toPost);
