@@ -1,4 +1,6 @@
-Maps = {
+Maps = (function () {
+    var data = [];
+    var self = {
     init: function () {
         // Start location and zoom
         var start_x = 44.460801721191814;
@@ -44,20 +46,11 @@ Maps = {
 
         map.on('locationerror', location_error);
 
-        // Geolocation
-        // $(document).ready(function() {
-            if (!navigator.geolocation) {
-                console.log('Geolocation denied');
-            } else {
-                map.locate();
-            };
-        // });
-
-        var data = [{
-            lat: me.y,
-            lng: me.x,
-            name: "Where the party at"
-        }];
+        if (!navigator.geolocation) {
+            console.log('Geolocation denied');
+        } else {
+            map.locate();
+        };
 
         var make_marker = function(spot) {
             return {
@@ -78,7 +71,6 @@ Maps = {
             };
         };
 
-        var party = data.map(make_marker);
 
         map.markerLayer.on('layeradd', function(e) {
             var marker = e.layer,
@@ -87,8 +79,24 @@ Maps = {
             marker.setIcon(L.icon(feature.properties.icon));
         });
 
-        map.markerLayer.setGeoJSON(party);
+        self.updateMap = function(){
+            var party = data.map(make_marker);
+            map.markerLayer.setGeoJSON(party);
+        }
     },
-    addPoint: function (){},
-    removePoint: function (){}
-}
+    addPoint: function (obj){
+        data.push(obj);
+        self.updateMap();
+        {
+            lat: me.y,
+            lng: me.x,
+            name: "Where the party at",
+            id: "asdfadsf"
+        }
+    },
+    removePoint: function (){
+        // data.push(obj);
+        self.updateMap();
+    }
+    }
+})()
