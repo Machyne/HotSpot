@@ -75,9 +75,6 @@ Maps = (function () {
             e.layer.closePopup();
         })
 
-        var content = '<span.tag>' + map.markerLayer.feature.properties.tags + '</span>'
-        map.markerLayer.bindPopup(content);
-
         /////
         // //
         /////
