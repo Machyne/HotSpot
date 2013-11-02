@@ -72,7 +72,7 @@ if (Meteor.isClient) {
         };
         $('#tag-list').html('');
       }else{
-        Maps.addCurrentLocation('Wassup');
+        Maps.addCurrentLocation('');
         $(this).attr('class', 'clicked');
         $('#bottomCurtain').removeAttr('class');
       };
