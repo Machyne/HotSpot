@@ -160,8 +160,10 @@ Maps = (function () {
             self.post(toPost);
         },
         addTagToLast: function (tag) {
-            last && (last['tags'].push(tag));
-            self.updateMap();
+            if (last) {
+                (last['tags'].push(tag));
+                self.updateMap();
+            }
         }
     }
     return self;

@@ -53,6 +53,8 @@ if (Meteor.isClient) {
         id: doc._id}, true);
     });
 
+    $('#title').attr('draggable', false);
+
     $('.leaflet-bottom.leaflet-right').remove();
     runRepeatedly(Maps.updateMap, 10000);
 
@@ -67,12 +69,19 @@ if (Meteor.isClient) {
         var sensor = $('<span>'+text+'</span>').css({margin: 0, padding: 0});
         $('body').append(sensor);
         var width = sensor.innerWidth();
-        console.log(sensor);
         sensor.remove();
         return width;
       };
       if (e.keyCode == 32 || e.keyCode == 188 || e.keyCode == 186 || e.keyCode == 13) {
         var tag = $(this).val().replace(/[' .;,"-]/g, '');
+        var p = $('#tagfield').position(),
+            x = p.left + 2,
+            y = p.top + $('#tagfield').height() / 2 - 7;
+        $('#copytext').html(tag)
+          .fadeIn(0)
+          .css( {left: x, top: y} )
+          .animate( {top: y + 50}, 200, queue = false )
+          .fadeOut(200, queue = false);
         Maps.addTagToLast(tag);
         var w = $('<li>#' + tag + '</li>').prependTo('#tag-list')
           .fadeOut(0).fadeIn().innerWidth();

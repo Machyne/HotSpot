@@ -19,6 +19,12 @@ header #title{
 	margin-left: auto;
     margin-right: auto;
     display:block;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    /* No support for these yet, use at own risk */
+    -o-user-select: none;
+    user-select: none;
 }
 
 #map {
@@ -52,13 +58,12 @@ header #title{
 	width: 235px;
 	height: 152px;
 
-	  -webkit-user-select: none;  /* Chrome all / Safari all */
-  -moz-user-select: none;     /* Firefox all */
-  -ms-user-select: none;      /* IE 10+ */
-
-  /* No support for these yet, use at own risk */
-  -o-user-select: none;
-  user-select: none;  
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    /* No support for these yet, use at own risk */
+    -o-user-select: none;
+    user-select: none;  
 }
 
 #hotbutton:hover{
@@ -87,13 +92,22 @@ header #title{
 }
 
 #tagfield{
--moz-box-sizing: border-box;
-box-sizing: border-box;
-height:59px;
-width: 100%;
-border:none;
-background-color: transparent;
-background-image: url('/textarea_gradient.png');
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    height:59px;
+    width: 100%;
+    border:none;
+    background-color: transparent;
+    background-image: url('/textarea_gradient.png');
+}
+
+#copytext{
+    position: absolute;
+}
+
+#tagfield, #copytext, #tag-list li {
+    font-family: Helvetica, sans-serif;
+    font-size: 1em;
 }
 
 footer{
@@ -109,11 +123,13 @@ footer{
 }
 
 #tag-list {
+    display: block;
+    padding: 0;
     position: relative;
 }
 
 #tag-list li {
+    padding-right: 0.5em;
     display: inline;
-    font-size: 0.8em;
-    color: #08f;
+    color: #f00;
 }
