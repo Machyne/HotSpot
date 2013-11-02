@@ -3,3 +3,7 @@
 	height: 200px;
 	float:left;
 }
+
+button#hot{
+ float:right;
+}
