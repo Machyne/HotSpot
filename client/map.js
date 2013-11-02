@@ -1,16 +1,18 @@
-Maps = {
+Maps = (function () {
+    var data = [];
+    var self = {
     init: function () {
         // Start location and zoom
-        var start_x = 44.460801721191814;
-        var start_y = -93.15390229225159;
-        var start_z = 16;
+        var start = { x: 44.460801721191814,
+                      y: -93.15390229225159,
+                      z: 16 }
 
-        var me = { x: start_x, y: start_y };
+        var me = { x: start.x, y: start.y };
 
         var map = L.mapbox.map('map', 'schiller.map-s9m1r6ii', { zoomControl: false })
-            .setView([start_x, start_y], start_z);
+            .setView([start.x, start.y], start.z);
 
-        // Disable drag and zoom handlers
+        // Enbale or disable drag and zoom handlers
         if (false) {
             map.dragging.disable();
             map.touchZoom.disable();
@@ -18,47 +20,37 @@ Maps = {
             map.scrollWheelZoom.disable();
         }
 
-        // Add marker
-        var location_update = function(lat, lon) {
-            console.log("Update location");
-            console.log("You are at %d %d", lat, lon);
+        // Add draggable marker
+        var add_draggable_marker = function(lat, lon) {
             var marker = L.marker(new L.LatLng(lat, lon), {
                 icon: L.mapbox.marker.icon({'marker-color': 'CC0033'}),
                 draggable: true
             });
-
             marker.bindPopup('Drag me!');
             marker.addTo(map);
         }
-        var location_error = function() {
-            console.log("user said no");
-            //location_update(me_x, me_y);
-        }
 
+        // Show user location on map
         map.on('locationfound', function(e) {
-            map.fitBounds(e.bounds);
+            // map.fitBounds(e.bounds);
             me_x = e.latlng.lat;
             me_y = e.latlng.lng;
-            location_update(me_x, me_y);
+            add_draggable_marker(me_x, me_y);
         })
 
-        map.on('locationerror', location_error);
+        // Couldn't get user location
+        map.on('locationerror', function() {
+            console.log("user said no");
+            //add_draggable_marker(me_x, me_y);
+        });
 
-        // Geolocation
-        // $(document).ready(function() {
-            if (!navigator.geolocation) {
-                console.log('Geolocation denied');
-            } else {
-                map.locate();
-            };
-        // });
+        if (!navigator.geolocation) {
+            console.log('Geolocation denied');
+        } else {
+            map.locate();
+        };
 
-        var data = [{
-            lat: me.y,
-            lng: me.x,
-            name: "Where the party at"
-        }];
-
+        // Convert spot object to marker object
         var make_marker = function(spot) {
             return {
                 "type": "Feature",
@@ -78,17 +70,34 @@ Maps = {
             };
         };
 
-        var party = data.map(make_marker);
-
         map.markerLayer.on('layeradd', function(e) {
             var marker = e.layer,
                 feature = marker.feature;
-
             marker.setIcon(L.icon(feature.properties.icon));
         });
 
-        map.markerLayer.setGeoJSON(party);
+        self.updateMap = function(){
+            var party = data.map(make_marker);
+            map.markerLayer.setGeoJSON(party);
+        }
     },
-    addPoint: function (){},
-    removePoint: function (){}
-}
+    addPoint: function (obj, noUpdate){
+        data.push(obj);
+        if(!noUpdate) self.updateMap();
+    },
+    removePoint: function (id){
+        data = data.filter(function (el, i, arr) {
+            return (el.id != id);
+        });
+        self.updateMap();
+    }
+    }
+    return self;
+})();
+
+
+// {
+//     lng: 44.460801721191814,
+//     lat: -93.15390229225159,
+//     name: "Where the party at",
+// }
