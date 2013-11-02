@@ -22,6 +22,10 @@ if (Meteor.isClient) {
       Maps.addPoint({lat: doc.lat, lng: doc.lng, name: doc.name, id: doc._id}, true); //noUpdate = true
     });
     Maps.updateMap();
+    Maps.post = function (spot) {
+      Spots.insert(spot);
+    };
+    $('.leaflet-bottom.leaflet-right').remove()
   });
 }
 
