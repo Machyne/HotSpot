@@ -1,17 +1,111 @@
+html, body{
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+
+header {
+	position: absolute;
+	top:0;
+	left:0;
+	right:0;
+	height:88px;
+	background-image: url("/titleGradient.png");
+	z-index: 100;
+}
+
+header #title{
+	margin-left: auto;
+    margin-right: auto;
+    display:block;
+}
+
 #map {
-	width: 500px;
-	height: 500px;
-	float:left;
+	z-index:0;
+	position: absolute;
+	top:80px;
+	bottom: 90px;
+	left: 0;
+	right: 0;
 }
 
-button#hotbutton {
- float:right;
+#bottomCurtain {
+	z-index: 200;
+	position: absolute;
+	left:0;
+	right:0;
+	height:320px;
+	bottom: -0px;
+	background-image: url('/curtain_gradient.png');
 }
 
-#tags {
-    box-sizing: border-box;
-    width: 150px;
-    max-width: 150px;
+#hotbutton {
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	position: relative;
+	margin-top:-45px;
+	background-image: url('/hotButton_up.png');
+	background-position: bottom;
+	background-repeat: no-repeat;
+	width: 235px;
+	height: 152px;
+
+	  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+
+  /* No support for these yet, use at own risk */
+  -o-user-select: none;
+  user-select: none;  
+}
+
+#hotbutton:hover{
+	background-image: url('/hotButton_up_hover.png');
+}
+
+#hotbutton:active{
+	background-image: url('/hotButton_down.png');
+	left:-2px;
+}
+
+#tagwrapper{
+	background-image: url('/textarea_left.png'), url('/textarea_right.png');
+	padding-left: 20px;
+	padding-right: 20px;
+	background-position: left top, right top;
+	height: 59px;
+	width:555px;
+	background-repeat: no-repeat;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#tagfield:focus{
+    outline: 0;
+}
+
+#tagfield{
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+height:59px;
+width: 100%;
+border:none;
+background-color: transparent;
+background-image: url('/textarea_gradient.png');
+}
+
+footer{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height:30px;
+	background-color: rgba(50,50,50,.5);
+	width:100%;
+	text-align: center;
+	padding-top:7px;
 }
 
 #tag-list {

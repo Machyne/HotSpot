@@ -62,7 +62,7 @@ if (Meteor.isClient) {
     });
 
     // Detect spacebar in the tags field
-    $('#tags').keyup(function (e) {
+    $('#tagfield').keyup(function (e) {
       var textWidth = function(text){
         var sensor = $('<span>'+text+'</span>').css({margin: 0, padding: 0});
         $('body').append(sensor);
@@ -101,7 +101,7 @@ if (!Date.unow) {
 if (Meteor.isServer) {
   Meteor.startup(function () {
     // code to run on server at startup
-    // Spots.remove({});
+    Spots.remove({});
     Spots.before.insert(function (userId, doc) {
         doc.created = Date.unow();
     });

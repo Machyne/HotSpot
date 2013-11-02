@@ -9,6 +9,9 @@
 </body>
 
 <template name="header">
+	<header>
+		<img id="title" alt="HotSpot" src="/title.png" />
+	</header>
 </template>
 
 <template name="map">
@@ -18,15 +21,12 @@
 
 <template name="footer">
 <div id="bottomCurtain">
-	<button id="hotbutton">HOT</button>
-  <div id="tag-entry">
-    <label for="tags">#</label>
-    <input id="tags" type="text">
-  </div>
-  <ul id="tag-list">
-  </ul>
+	<a id="hotbutton"></a>
+	<div id="tagwrapper"><input type="text" id="tagfield" placeholder="describe the hotspot"></div>
+  	<ul id="tag-list">
+  	</ul>
 	<footer>
-		Made by The Flying Walruses
+		A Flying Walrus Project
 	</footer>
 </div>
 </template>
