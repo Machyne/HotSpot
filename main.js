@@ -1,6 +1,6 @@
 Spots = new Meteor.Collection("spots"); //model
 
-var liveTime = 3 * 60 * 1000; // min/hour * sec/min * ms/sec  = 1 hour
+var liveTime = 90 * 60 * 1000; // 90 * sec/min * ms/sec  = 90 min
 
 function runRepeatedly(callback, timeout){
   callback();
